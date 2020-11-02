@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXComboBox?>
+<?import com.jfoenix.controls.JFXListView?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Pagination?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.FlowPane?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane fx:id="loadHome" maxHeight="600.0" maxWidth="1200.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="900.0" stylesheets="@Style.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Home.Controller">
+   <children>
+      <FlowPane alignment="TOP_CENTER" prefHeight="51.0" prefWidth="900.0" style="-fx-background-color: white;" AnchorPane.bottomAnchor="549.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <TextField fx:id="keyWord" onAction="#handelSearch" prefHeight="40.0" prefWidth="411.0" promptText="Tìm sản phẩm" style="-fx-background-color: rgb(239, 239, 239); -fx-background-radius: 0;">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </TextField>
+            <JFXComboBox fx:id="listCategory" focusColor="WHITE" onAction="#getIdCategory" prefHeight="40.0" prefWidth="117.0" promptText="Tất cả" style="-fx-background-radius: 0; -fx-background-color: rgb(239, 239, 239);" unFocusColor="WHITE" />
+            <JFXButton id="btnS" onAction="#handelSearch" prefHeight="40.0" prefWidth="100.0" style="-fx-background-radius: 0; -fx-background-color: #0174DF;" text="Tìm kiếm" textFill="WHITE">
+               <font>
+                  <Font name="Arial" size="14.0" />
+               </font>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </JFXButton>
+         </children>
+      </FlowPane>
+      <GridPane layoutX="24.0" layoutY="61.0" prefHeight="539.0" prefWidth="851.0">
+        <columnConstraints>
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints maxHeight="218.33331298828125" minHeight="10.0" prefHeight="51.66667175292969" vgrow="SOMETIMES" />
+          <RowConstraints maxHeight="492.6666717529297" minHeight="10.0" prefHeight="432.3333282470703" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="492.6666717529297" minHeight="10.0" prefHeight="54.33331298828125" vgrow="SOMETIMES" />
+        </rowConstraints>
+         <children>
+            <HBox alignment="TOP_CENTER" prefHeight="197.0" prefWidth="851.0">
+               <children>
+                  <Label prefHeight="62.0" prefWidth="73.0" text="Kết quả : ">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets />
+                     </HBox.margin>
+                  </Label>
+                  <Label fx:id="totalProduct" layoutX="10.0" layoutY="10.0" prefHeight="62.0" prefWidth="120.0" text="0 sản phẩm">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="68.0" layoutY="10.0" prefHeight="62.0" prefWidth="77.0" text="Danh mục :">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="nameCategory" layoutX="181.0" layoutY="10.0" prefHeight="62.0" prefWidth="88.0" text="Tất cả" wrapText="true">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Label>
+                  <TextField prefHeight="38.0" prefWidth="152.0" promptText="Giá từ" />
+                  <Label alignment="CENTER" prefHeight="38.0" prefWidth="26.0" text="và">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Label>
+                  <TextField layoutX="181.0" layoutY="10.0" prefHeight="38.0" prefWidth="162.0" promptText="Giá đến" />
+                  <JFXButton id="btnS" onAction="#handelSearch" prefHeight="38.0" prefWidth="57.0" style="-fx-background-color: #0174DF;" text="Lọc" textFill="WHITE">
+                     <font>
+                        <Font name="Arial" size="14.0" />
+                     </font>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                     <HBox.margin>
+                        <Insets left="6.0" />
+                     </HBox.margin>
+                  </JFXButton>
+               </children>
+               <GridPane.margin>
+                  <Insets bottom="4.0" />
+               </GridPane.margin>
+            </HBox>
+            <JFXListView fx:id="listProduct" prefHeight="410.0" prefWidth="851.0" GridPane.rowIndex="1" />
+            <Pagination fx:id="pageHome" prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="2">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor></Pagination>
+         </children>
+      </GridPane>
+   </children>
+</AnchorPane>

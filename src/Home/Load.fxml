@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane fx:id="loadPane" prefHeight="400.0" prefWidth="400.0" style="-fx-background-color: #0174DF;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Home.Load">
+   <children>
+      <VBox alignment="TOP_CENTER" layoutX="100.0" layoutY="52.0" prefHeight="296.0" prefWidth="200.0">
+         <children>
+            <ImageView fitHeight="175.0" fitWidth="210.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../icon/96d39b47-870e-4d91-83a4-f3b2cc78e5b3_200x200.png" />
+               </image>
+            </ImageView>
+            <Label fx:id="textError" alignment="CENTER" prefHeight="26.0" prefWidth="200.0" style="-fx-font-weight: bold;" text="Đang kết nối tới Server" textFill="#faf7f7">
+               <font>
+                  <Font name="Calibri" size="18.0" />
+               </font>
+            </Label>
+            <HBox prefHeight="34.0" prefWidth="200.0">
+               <children>
+                  <Label alignment="CENTER_RIGHT" prefHeight="57.0" prefWidth="59.0" style="-fx-font-weight: bold;" text="IP :" textFill="WHITE">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Label>
+                  <Label prefHeight="57.0" prefWidth="142.0" style="-fx-font-weight: bold;" text="192.168.1.2" textFill="WHITE">
+                     <font>
+                        <Font name="Arial" size="14.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets />
+                     </HBox.margin>
+                     <padding>
+                        <Insets left="10.0" />
+                     </padding>
+                  </Label>
+               </children>
+            </HBox>
+            <ImageView fx:id="imgLoad" fitHeight="18.0" fitWidth="176.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../icon/30.gif" />
+               </image>
+            </ImageView>
+            <VBox fx:id="error" alignment="TOP_CENTER" prefHeight="64.0" prefWidth="100.0" visible="false">
+               <children>
+                  <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+                     <children>
+                        <Button onAction="#handleConnect" prefHeight="31.0" prefWidth="95.0" style="-fx-background-color: #FFFFFF;" text="Kết nối lại">
+                           <font>
+                              <Font name="Arial" size="14.0" />
+                           </font>
+                           <HBox.margin>
+                              <Insets right="20.0" />
+                           </HBox.margin>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                        </Button>
+                        <Button onAction="#closeSession" prefHeight="32.0" prefWidth="74.0" style="-fx-background-color: #FA5858;" text="Đóng" textFill="WHITE">
+                           <font>
+                              <Font name="Arial" size="15.0" />
+                           </font>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                        </Button>
+                     </children>
+                  </HBox>
+               </children>
+            </VBox>
+         </children>
+      </VBox>
+   </children>
+</AnchorPane>

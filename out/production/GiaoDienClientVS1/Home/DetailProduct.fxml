@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.chart.AreaChart?>
+<?import javafx.scene.chart.CategoryAxis?>
+<?import javafx.scene.chart.NumberAxis?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.FlowPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<?import javafx.scene.layout.Pane?>
+<AnchorPane fx:id="paneDetail" prefHeight="599.0" prefWidth="903.0" style="-fx-border-color: #ffffff;" stylesheets="@Style.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Home.DetailProduct">
+   <children>
+      <Pane prefHeight="615.0" prefWidth="903.0">
+         <FlowPane prefHeight="338.0" prefWidth="904.0" rowValignment="TOP">
+            <children>
+               <AreaChart fx:id="lineChart" prefHeight="437.0" prefWidth="903.0" title="Biểu đồ theo dõi lịch sử giá">
+                  <xAxis>
+                     <CategoryAxis  animated="false" />
+                  </xAxis>
+                  <yAxis>
+                     <NumberAxis side="LEFT" />
+                  </yAxis>
+               </AreaChart>
+               <HBox prefHeight="12.0" prefWidth="900.0" />
+               <HBox prefHeight="164.0" prefWidth="904.0" style="-fx-background-color: white;">
+                  <children>
+                     <ImageView fx:id="image" fitHeight="143.0" fitWidth="91.0" pickOnBounds="true" preserveRatio="true">
+                        <image>
+                           <Image url="@../icon/hoc-choi-co-tuong-hai-phong.jpg" />
+                        </image>
+                     </ImageView>
+                     <VBox prefHeight="143.0" prefWidth="511.0">
+                        <children>
+                           <Label fx:id="nameProduct" alignment="TOP_LEFT" prefHeight="60.0" prefWidth="480.0" text="Custom FXML: Dynamically load customized JavaFX UI - Netbeans" wrapText="true">
+                              <padding>
+                                 <Insets left="15.0" />
+                              </padding>
+                              <font>
+                                 <Font size="18.0" />
+                              </font>
+                           </Label>
+                           <Label fx:id="priceProduct" alignment="TOP_LEFT" layoutX="10.0" layoutY="10.0" prefHeight="36.0" prefWidth="480.0" text="500.000 vnd" textFill="#ff3945" wrapText="true">
+                              <padding>
+                                 <Insets left="15.0" />
+                              </padding>
+                              <font>
+                                 <Font size="19.0" />
+                              </font>
+                           </Label>
+                           <JFXButton onAction="#handleWebView" prefHeight="48.0" prefWidth="232.0" style="-fx-background-color: #0174DF;" text="Xem chi tiết trên website" textFill="WHITE">
+                              <VBox.margin>
+                                 <Insets left="15.0" />
+                              </VBox.margin>
+                              <cursor>
+                                 <Cursor fx:constant="HAND" />
+                              </cursor>
+                              <font>
+                                 <Font size="15.0" />
+                              </font>
+                           </JFXButton>
+                        </children>
+                     </VBox>
+                     <VBox prefHeight="143.0" prefWidth="232.0">
+                        <children>
+                           <Label alignment="CENTER" prefHeight="30.0" prefWidth="283.0" text="Đánh giá">
+                              <font>
+                                 <Font size="20.0" />
+                              </font>
+                           </Label>
+                           <Label alignment="CENTER" prefHeight="25.0" prefWidth="283.0" text="128 lượt đánh giá">
+                              <font>
+                                 <Font size="18.0" />
+                              </font>
+                           </Label>
+                           <Label alignment="CENTER" layoutX="10.0" layoutY="40.0" prefHeight="39.0" prefWidth="283.0" text="10 nhận xét">
+                              <font>
+                                 <Font size="18.0" />
+                              </font>
+                           </Label>
+                           <JFXButton onAction="#handleOpenComment" prefHeight="48.0" prefWidth="232.0" style="-fx-background-color: #0174DF;" text="Xem bình luận" textFill="WHITE">
+                              <font>
+                                 <Font size="15.0" />
+                              </font>
+                              <cursor>
+                                 <Cursor fx:constant="HAND" />
+                              </cursor>
+                           </JFXButton>
+                        </children>
+                     </VBox>
+                  </children>
+                  <padding>
+                     <Insets left="20.0" />
+                  </padding>
+               </HBox>
+            </children>
+         </FlowPane>
+      </Pane>
+   </children>
+</AnchorPane>
