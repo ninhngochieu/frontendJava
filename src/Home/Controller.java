@@ -49,16 +49,9 @@ public class Controller implements Initializable {
     public Label nameCategory;
     public Pagination pageHome;
     public JFXListView<Product> listProduct;
-    public void handleDetail(ActionEvent event) throws IOException {
-        Parent root2 = FXMLLoader.load(getClass().getResource("DetailProduct.fxml"));
-        Scene detail = new Scene(root2);
-        Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
-        window.setScene(detail);
-        window.show();
-    }
-    public void handelSearch(ActionEvent event){
-        search(1);
-    }
+    public TextField minPrice;
+    public TextField maxPrice;
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
        cl.senData("getAllCategory","");
@@ -72,21 +65,37 @@ public class Controller implements Initializable {
        pageHome.currentPageIndexProperty().addListener((observableValue, oldpage, nextpage) -> {
            int page = (int) nextpage+1;
            System.out.println(page);
-           search(page);
+           String min = minPrice.getText();
+           String max = maxPrice.getText();
+           search(page,min,max);
        });
+        keyWord.setOnKeyTyped(event -> {
+            System.out.println(keyWord.getText());
+        });
     }
-    public void search(int page){
+    public void handelSearch(ActionEvent event){
+        search(1,null,null);
+    }
+    public void search(int page,String minPrice,String maxPrice){
         listProduct.getItems().clear();
         if(idCategory == null){
             idCategory = "1";
         }
         String key = "key="+keyWord.getText()+"&idCategory="+idCategory+"&page="+page;
+        if(minPrice != null || maxPrice != null){
+            key = "key="+keyWord.getText()+"&idCategory="+idCategory+"&page="+page+"&min_price="+minPrice+"&max_price="+maxPrice;
+        }
         cl.senData("search",key);
         totalProduct.setText(String.valueOf(arr.page.getTotal())+" Sản phẩm");
         getNameCatogory();
         pageHome.setPageCount(arr.page.getTotal_page());
         pageHome.setCurrentPageIndex(page-1);
         addDataTable();
+    }
+    public void fillterPrice(ActionEvent event){
+        String min = minPrice.getText();
+        String max = maxPrice.getText();
+        search(1,min,max);
     }
     public void getNameCatogory(){
         if(idCategory.equals("1")){

@@ -43,7 +43,7 @@ public class Load implements Initializable {
         public Boolean connect(){
             Boolean con = false;
             try {
-                new Client("192.168.1.46",5002);
+                new Client("192.168.2.46",5002);
                 con = true;
             } catch (IOException e) {
                 con = false;

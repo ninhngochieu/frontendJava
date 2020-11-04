@@ -71,14 +71,14 @@
                         <Font size="14.0" />
                      </font>
                   </Label>
-                  <TextField prefHeight="38.0" prefWidth="152.0" promptText="Giá từ" />
+                  <TextField fx:id="minPrice" prefHeight="38.0" prefWidth="152.0" promptText="Giá từ" />
                   <Label alignment="CENTER" prefHeight="38.0" prefWidth="26.0" text="và">
                      <font>
                         <Font size="14.0" />
                      </font>
                   </Label>
-                  <TextField layoutX="181.0" layoutY="10.0" prefHeight="38.0" prefWidth="162.0" promptText="Giá đến" />
-                  <JFXButton id="btnS" onAction="#handelSearch" prefHeight="38.0" prefWidth="57.0" style="-fx-background-color: #0174DF;" text="Lọc" textFill="WHITE">
+                  <TextField fx:id="maxPrice" layoutX="181.0" layoutY="10.0" prefHeight="38.0" prefWidth="162.0" promptText="Giá đến" />
+                  <JFXButton id="btnS" onAction="#fillterPrice" prefHeight="38.0" prefWidth="57.0" style="-fx-background-color: #0174DF;" text="Lọc" textFill="WHITE">
                      <font>
                         <Font name="Arial" size="14.0" />
                      </font>
