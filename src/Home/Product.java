@@ -8,6 +8,25 @@ public class Product {
     private String image;
     private String id_item;
     private int price;
+    private int max_price;
+
+    public int getMax_price() {
+        return max_price;
+    }
+
+    public void setMax_price(int max_price) {
+        this.max_price = max_price;
+    }
+
+    public int getMin_price() {
+        return min_price;
+    }
+
+    public void setMin_price(int min_price) {
+        this.min_price = min_price;
+    }
+
+    private int min_price;
 
     public Product(String id, String name, String image, String id_item, int price) {
         this.id = id;

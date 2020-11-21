@@ -66,6 +66,12 @@ public class Client {
         if(action.equals("detailProduct")){
             reustlDetailProduct(line);
         }
+        if(action.equals("fillter_history")){
+            if(SINGLETON.histories != null){
+                SINGLETON.histories.clear();
+            }
+            SINGLETON.histories.addAll(resultHistoryUpdate(line));
+        }
     }
     static ArrayList<Category> resutlDataCategory(String data) {
         ArrayList<Category> arr = new ArrayList<>();
@@ -116,6 +122,8 @@ public class Client {
         SINGLETON.product.setImage(jsons.getJSONObject("data").getString("image"));
         SINGLETON.product.setPrice(jsons.getJSONObject("data").getInt("price"));
         SINGLETON.product.setId_item(jsons.getJSONObject("data").getString("id_item"));
+        SINGLETON.product.setMax_price(jsons.getInt("max_price"));
+        SINGLETON.product.setMin_price(jsons.getInt("min_price"));
         JSONArray jsonComment = jsons.getJSONObject("data").getJSONArray("commentDTOS");
         JSONArray jsonHistory = jsons.getJSONObject("data").getJSONArray("historyDTOS");
         if(SINGLETON.histories != null){
@@ -144,6 +152,27 @@ public class Client {
         }
         return arr;
     }
+    static ArrayList<History> resultHistoryUpdate(String line){
+        ArrayList<History> arr = new ArrayList<>();
+        JSONObject jsonObjs = new JSONObject(line);
+        SINGLETON.product.setMax_price(jsonObjs.getInt("max_price"));
+        SINGLETON.product.setMin_price(jsonObjs.getInt("min_price"));
+        JSONArray json = jsonObjs.getJSONArray("data");
+        try {
+            for(int i = 0 ; i < json.length() ;i++){
+                History  history = new History();
+                //DateFormat formatS = new SimpleDateFormat("MM-dd-yyyy");
+                JSONObject jsonObj = json.getJSONObject(i);
+                //Date day = formatS.parse();
+                history.setLastUpdate(jsonObj.getString("last_update"));
+                history.setPrice(jsonObj.getInt("current_price"));
+                arr.add(history);
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return arr;
+    }
     static ArrayList<CommentDTO> resultComment(JSONArray arrCommnent){
         ArrayList<CommentDTO> arr = new ArrayList<>();
         try {
@@ -152,7 +181,7 @@ public class Client {
                 CommentDTO commentDTO = new CommentDTO();
                 commentDTO.setId_product(jsonObj.getString("id_product"));
                 commentDTO.setFull_name(jsonObj.getString("full_name"));
-                commentDTO.setPurchased_at(jsonObj.getInt("purchased_at"));
+                commentDTO.setPurchased_at(jsonObj.getString("purchased_at"));
                 commentDTO.setRating(jsonObj.getInt("rating"));
                 commentDTO.setTitle(jsonObj.getString("title"));
                 commentDTO.setContent(jsonObj.getString("content"));

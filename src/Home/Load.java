@@ -26,6 +26,7 @@ public class Load implements Initializable {
     public ImageView imgLoad;
     @FXML
     public VBox error;
+    public static String ip = "10.0.5.12";
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -43,7 +44,7 @@ public class Load implements Initializable {
         public Boolean connect(){
             Boolean con = false;
             try {
-                new Client("192.168.2.46",5002);
+                new Client(ip,5002);
                 con = true;
             } catch (IOException e) {
                 con = false;

@@ -24,15 +24,23 @@ public class Comment implements Initializable {
     public Label Star;
     public Label contentCommnet;
     public JFXListView<CommentDTO> listComment;
+    public ScrollPane main;
     public VBox itemContent;
     static Singleton arr = Singleton.getInstance();
     public ObservableList<CommentDTO> dataCommnet = FXCollections.observableArrayList();
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         for(CommentDTO comment : arr.commentDTOS){
-
-            dataCommnet.add(comment);
+            VBox s = new VBox();
+            Label a = new Label();
+            s.setMaxWidth(200);
+            s.setMaxHeight(300);
+            a.setText(comment.getFull_name());
+            s.getChildren().addAll(a);
+            main.setContent(s);
+            //dataCommnet.add(comment);
         }
+
     }
     static class Cell extends ListCell<CommentDTO>{
         @FXML

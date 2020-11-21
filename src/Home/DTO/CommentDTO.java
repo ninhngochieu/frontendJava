@@ -8,9 +8,9 @@ public class CommentDTO {
     private float rating;
     private String id_product;
     private String full_name;
-    private int purchased_at;
+    private String purchased_at;
 
-    public CommentDTO(String id, String title, String content, int thank_count, float rating, String id_product, String full_name, int purchased_at) {
+    public CommentDTO(String id, String title, String content, int thank_count, float rating, String id_product, String full_name, String purchased_at) {
         this.id = id;
         this.title = title;
         this.content = content;
@@ -79,11 +79,11 @@ public class CommentDTO {
         this.full_name = full_name;
     }
 
-    public int getPurchased_at() {
+    public String getPurchased_at() {
         return purchased_at;
     }
 
-    public void setPurchased_at(int purchased_at) {
+    public void setPurchased_at(String purchased_at) {
         this.purchased_at = purchased_at;
     }
 }

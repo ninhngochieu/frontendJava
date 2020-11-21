@@ -1,6 +1,7 @@
 package Home;
 
 import Home.DTO.History;
+import Home.Model.Client;
 import Home.Model.Singleton;
 import com.jfoenix.controls.JFXListView;
 import javafx.collections.FXCollections;
@@ -14,6 +15,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.chart.*;
 import javafx.scene.control.Button;
+import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.image.Image;
@@ -40,6 +42,10 @@ public class DetailProduct implements Initializable {
     public ImageView image;
     public Label nameProduct;
     public Label priceProduct;
+    public DatePicker date_start;
+    public DatePicker date_end;
+    public Label minPrice;
+    public Label maxPrice;
     DecimalFormat formatter = new DecimalFormat("###,###,###");
     public void handleBackHome(ActionEvent event) throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource("Home.fxml"));
@@ -65,6 +71,8 @@ public class DetailProduct implements Initializable {
         nameProduct.setText(arr.product.getName());
         String prices = formatter.format(arr.product.getPrice())+" VNĐ";
         priceProduct.setText(prices);
+        maxPrice.setText(formatter.format(arr.product.getMax_price())+" Đ");
+        minPrice.setText(formatter.format(arr.product.getMin_price())+" Đ");
         series.setName(arr.product.getName());
         lineChart.setAnimated(false);
         lineChart.getData().add(series);
@@ -77,6 +85,25 @@ public class DetailProduct implements Initializable {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+    public void handleFillterDate(ActionEvent event){
+        String start = date_start.getValue().toString();
+        String end = date_end.getValue().toString();
+        String key = "id="+id+"&start="+start+"&end="+end;
+        Client.senData("fillter_history",key);
+        XYChart.Series<String,Number> series = new XYChart.Series<>();
+        lineChart.getData().remove(0);
+        for(History h : arr.histories){
+            XYChart.Data<String,Number> day = new XYChart.Data<>(h.getLastUpdate(), h.getPrice());
+            series.getData().addAll(day);
+        }
+        series.setName(arr.product.getName());
+        lineChart.getData().add(series);
+        maxPrice.setText(formatter.format(arr.product.getMax_price())+" Đ");
+        minPrice.setText(formatter.format(arr.product.getMin_price())+" Đ");
+    }
+    public void reloadSecne(){
+
     }
     public void handleOpenComment(ActionEvent event) throws IOException {
         Pane newLoadedPane =  FXMLLoader.load(getClass().getResource("Comment.fxml"));
