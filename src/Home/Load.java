@@ -8,6 +8,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
@@ -25,11 +26,13 @@ public class Load implements Initializable {
     @FXML
     public ImageView imgLoad;
     @FXML
+    public Label addressip;
     public VBox error;
-    public static String ip = "10.0.5.12";
-
+    public static String ip = "192.168.1.3";
     @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
+    public void initialize(URL url, ResourceBundle resourceBundle)
+    {
+        addressip.setText(ip);
         new load().start();
     }
     public void handleConnect(ActionEvent event){
@@ -41,22 +44,14 @@ public class Load implements Initializable {
         System.exit(0);
     }
     class load extends Thread{
-        public Boolean connect(){
-            Boolean con = false;
-            try {
-                new Client(ip,5002);
-                con = true;
-            } catch (IOException e) {
-                con = false;
-            }
-            return con;
-        }
         public void loadHome(){
-            if(connect()){
+            Client cl = new Client();
+            if(cl.startClient(ip,5003)){
                 try {
                     Stage window = new Stage();
                     Parent root2 = FXMLLoader.load(getClass().getResource("Home.fxml"));
                     window.setTitle("Theo dõi giá tiki");
+                    window.resizableProperty().setValue(false);
                     InputStream stream = new FileInputStream("C:\\Users\\huyth\\IdeaProjects\\GiaoDienClientVS1\\src\\icon\\icons8_chart_increasing_with_yen_20px.png");
                     window.getIcons().add(new Image(stream));
                     Scene detail = new Scene(root2);

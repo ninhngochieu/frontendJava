@@ -4,6 +4,7 @@ import Home.DTO.Category;
 import Home.DTO.CommentDTO;
 import Home.DTO.History;
 import Home.DTO.Page;
+import Home.NameProduct;
 import Home.Product;
 
 import java.util.ArrayList;
@@ -14,6 +15,8 @@ public class Singleton {
     public Product product;
     public ArrayList<History> histories = null;
     public ArrayList<CommentDTO> commentDTOS = null;
+    public ArrayList<NameProduct> nameProducts = null;
+    public static String key = null;
 
     public Page page;
 
@@ -25,6 +28,7 @@ public class Singleton {
         product = new Product();
         page = new Page();
         commentDTOS = new ArrayList<>();
+        nameProducts = new ArrayList<>();
     }
     public static Singleton getInstance() {
         if(instance == null){

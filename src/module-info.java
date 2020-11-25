@@ -6,6 +6,5 @@ module GiaoDienClientVS1 {
     requires com.jfoenix;
     requires fontawesomefx;
     requires org.json;
-    requires jackson.core;
     opens Home;
 }

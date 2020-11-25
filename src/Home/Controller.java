@@ -5,10 +5,12 @@ import Home.Model.Client;
 import Home.Model.Singleton;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXListView;
-import javafx.beans.value.ChangeListener;
+import javafx.application.Platform;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
+import javafx.collections.transformation.SortedList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -16,18 +18,20 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
-import javafx.util.Callback;
 
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -35,6 +39,7 @@ import java.io.InputStream;
 import java.net.URL;
 import java.text.DecimalFormat;
 import java.util.ResourceBundle;
+import java.util.function.Predicate;
 
 public class Controller implements Initializable {
     public ObservableList<Category> categoryList = FXCollections.observableArrayList();
@@ -51,6 +56,9 @@ public class Controller implements Initializable {
     public JFXListView<Product> listProduct;
     public TextField minPrice;
     public TextField maxPrice;
+    public TableView<NameProduct> tableView;
+    public TableColumn<NameProduct,String> nameProduct;
+    public VBox layouSearch;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -59,7 +67,6 @@ public class Controller implements Initializable {
        for(Category a : arr.categories){
            categoryList.add(a);
        }
-       String[] a = {"a","huythng","bbb"};
        listCategory.setItems(categoryList);
        pageHome.setPageCount(1);
        pageHome.currentPageIndexProperty().addListener((observableValue, oldpage, nextpage) -> {
@@ -69,11 +76,72 @@ public class Controller implements Initializable {
            String max = maxPrice.getText();
            search(page,min,max);
        });
-        keyWord.setOnKeyTyped(event -> {
-            System.out.println(keyWord.getText());
+        tableViews();
+        keyWord.setOnKeyPressed(event -> {
+            if(event.getCode().equals(KeyCode.DOWN)){
+                tableView.requestFocus();
+                tableView.getSelectionModel().select(0);
+                tableView.getFocusModel().focus(0);tableView.requestFocus();
+                tableView.getSelectionModel().select(0);
+                tableView.getFocusModel().focus(0);
+            }
+        });
+    }
+    public void onEdit() {
+        // check the table's selected item and get selected item
+        if (tableView.getSelectionModel().getSelectedItem() != null) {
+            NameProduct nameProduct = tableView.getSelectionModel().getSelectedItem();
+            keyWord.setText(nameProduct.getName());
+            keyWord.requestFocus();
+        }
+    }
+    public void tableViews(){
+        ObservableList<NameProduct> data = FXCollections.observableArrayList();
+        for(NameProduct name : arr.nameProducts){
+            data.add(name);
+        }
+        tableView.setOnMouseClicked((MouseEvent event) -> {
+            if (event.getClickCount() == 1) {
+                onEdit();
+            }
+        });
+        nameProduct.setCellValueFactory(new PropertyValueFactory<NameProduct,String>("name"));
+        tableView.setItems(data);
+        ObservableList datas =  tableView.getItems();
+        keyWord.textProperty().addListener((ObservableValue<? extends String> observable, String oldValue, String newValue) -> {
+            layouSearch.setVisible(true);
+            if (oldValue != null && (newValue.length() < oldValue.length())) {
+                tableView.setItems(datas);
+            }
+            String value = newValue.toLowerCase();
+            ObservableList<NameProduct> subentries = FXCollections.observableArrayList();
+
+            long count = tableView.getColumns().stream().count();
+            for (int i = 0; i < tableView.getItems().size(); i++) {
+                for (int j = 0; j < count; j++) {
+                    String entry = "" + tableView.getColumns().get(j).getCellData(i);
+                    if (entry.toLowerCase().contains(value)) {
+                        subentries.add(tableView.getItems().get(i));
+                        break;
+                    }
+                }
+            }
+            tableView.setItems(subentries);
+        });
+        Platform.runLater(() -> Demo());
+
+    }
+    public void Demo(){
+        tableView.setOnKeyReleased((KeyEvent event) -> {
+            if(!tableView.getSelectionModel().isEmpty()
+                    && (event.getCode().equals(KeyCode.ENTER))){
+                onEdit();
+                event.consume();
+            }
         });
     }
     public void handelSearch(ActionEvent event){
+        layouSearch.setVisible(false);
         search(1,null,null);
     }
     public void search(int page,String minPrice,String maxPrice){

@@ -7,6 +7,8 @@
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Pagination?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
@@ -14,6 +16,7 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
 <AnchorPane fx:id="loadHome" maxHeight="600.0" maxWidth="1200.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="900.0" stylesheets="@Style.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Home.Controller">
@@ -101,5 +104,14 @@
                </cursor></Pagination>
          </children>
       </GridPane>
+      <VBox fx:id="layouSearch" layoutX="136.0" layoutY="40.0" prefHeight="239.0" prefWidth="528.0" style="-fx-background-color: white;" visible="false">
+         <children>
+            <TableView fx:id="tableView"  editable="true" prefHeight="246.0" prefWidth="528.0" style="-fx-background-color: white; -fx-border-color: #BDBDBD;">
+              <columns>
+                <TableColumn fx:id="nameProduct" prefWidth="526.0" sortable="false" styleClass="noheader" text="Gợi ý tên" />
+              </columns>
+            </TableView>
+         </children>
+      </VBox>
    </children>
 </AnchorPane>

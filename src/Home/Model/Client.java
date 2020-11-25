@@ -12,26 +12,33 @@ import Home.DTO.Category;
 import Home.DTO.CommentDTO;
 import Home.DTO.History;
 import Home.DTO.Page;
+import Home.NameProduct;
 import Home.Product;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 public class Client {
-    private static Socket socket = null;
+    private Socket socket = null;
     static BufferedWriter out = null;
     static BufferedReader in = null;
     static BufferedReader stdIn = null;
     static Singleton SINGLETON = Singleton.getInstance();
-    public Client(String address,int port) throws IOException {
-        startClient(address,port);
-    }
-    void startClient(String address, int port) throws IOException {
-        socket = new Socket(address, port);
-        System.out.println("Connected");
-        out = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
-        in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-        stdIn = new BufferedReader(new InputStreamReader(System.in));
+    private static Security sc = new Security();
+    public Client(){ }
+    public boolean startClient(String address, int port) {
+        boolean con = false;
+        try {
+            socket = new Socket(address, port);
+            System.out.println("Connected");
+            out = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
+            in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+            stdIn = new BufferedReader(new InputStreamReader(System.in));
+            con = true;
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
+        return con;
     }
     void closeConnection() throws IOException {
         in.close();
@@ -40,9 +47,15 @@ public class Client {
     }
     public static void senData(String action,String param){
         String key = "action="+action+"&"+param;
-        System.out.println(key);
+        String keys = "";
+        if(action.equals("getAllCategory")){
+            keys = key;
+        }
+        else{
+            keys = sc.encrypt(key,SINGLETON.key);
+        }
         try {
-            out.write(key);
+            out.write(keys);
             out.newLine();
             out.flush();
             String line = in.readLine();
@@ -53,24 +66,30 @@ public class Client {
         }
     }
     static void checkResult(String line,String action){
+
+        String data = null;
         if(action.equals("getAllCategory")){
             SINGLETON.categories = resutlDataCategory(line);
+            //SINGLETON.nameProducts = resutlNameProduct(line);
         }
         if(action.equals("search")){
             if(SINGLETON.products != null){
                 SINGLETON.products.clear();
             }
-            SINGLETON.products.addAll(resultDataProduct(line));
+            data = sc.decrypt(line,SINGLETON.key);
+            SINGLETON.products.addAll(resultDataProduct(data));
             //System.out.println(SINGLETON.products);
         }
         if(action.equals("detailProduct")){
-            reustlDetailProduct(line);
+            data = sc.decrypt(line,SINGLETON.key);
+            reustlDetailProduct(data);
         }
         if(action.equals("fillter_history")){
+            data = sc.decrypt(line,SINGLETON.key);
             if(SINGLETON.histories != null){
                 SINGLETON.histories.clear();
             }
-            SINGLETON.histories.addAll(resultHistoryUpdate(line));
+            SINGLETON.histories.addAll(resultHistoryUpdate(data));
         }
     }
     static ArrayList<Category> resutlDataCategory(String data) {
@@ -79,6 +98,7 @@ public class Client {
         try {
             jsons = new JSONObject(data);
             JSONArray json = jsons.getJSONArray("data");
+            SINGLETON.key = jsons.getString("key");
             for(int i = 0 ; i < json.length() ;i++){
                 Category  category = new Category();
                 JSONObject jsonObj = json.getJSONObject(i);
@@ -87,11 +107,39 @@ public class Client {
                 category.setImage(jsonObj.getString("image"));
                 arr.add(category);
             }
+            ArrayList<NameProduct> arrName = new ArrayList<>();
+            try {
+                JSONArray jsonw = jsons.getJSONArray("name");
+                jsonw.forEach(x -> {
+                    NameProduct  name = new NameProduct();
+                    name.setName(x.toString());
+                    arrName.add(name);
+                });
+                SINGLETON.nameProducts = arrName;
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
         } catch (JSONException e) {
             e.printStackTrace();
         }
         return arr;
     }
+//    static ArrayList<NameProduct> resutlNameProduct(String data) {
+//        ArrayList<NameProduct> arr = new ArrayList<>();
+//        JSONObject jsons = null;
+//        try {
+//            jsons = new JSONObject(data);
+//            JSONArray json = jsons.getJSONArray("name");
+//            json.forEach(x -> {
+//                NameProduct  name = new NameProduct();
+//                name.setName(x.toString());
+//                arr.add(name);
+//            });
+//        } catch (JSONException e) {
+//            e.printStackTrace();
+//        }
+//        return arr;
+//    }
     static ArrayList<Product> resultDataProduct(String data){
         ArrayList<Product> arr = new ArrayList<>();
         JSONObject jsons = null;

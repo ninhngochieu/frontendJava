@@ -32,7 +32,7 @@
                         <Font size="14.0" />
                      </font>
                   </Label>
-                  <Label prefHeight="57.0" prefWidth="142.0" style="-fx-font-weight: bold;" text="192.168.1.2" textFill="WHITE">
+                  <Label fx:id="addressip" prefHeight="57.0" prefWidth="142.0" style="-fx-font-weight: bold;" text="192.168.1.2" textFill="WHITE">
                      <font>
                         <Font name="Arial" size="14.0" />
                      </font>

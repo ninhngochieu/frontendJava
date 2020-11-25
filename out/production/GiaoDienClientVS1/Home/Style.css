@@ -38,3 +38,26 @@
 .default-color1.chart-series-line {-fx-stroke:                      #000000;}
 .default-color1.chart-series-area-line {-fx-stroke:                 #000000;}
 .default-color1.chart-series-area-fill {-fx-fill:                   #000000;}
+.table-view .scroll-bar * {
+    -fx-min-width: 0;
+    -fx-pref-width: 0;
+    -fx-max-width: 0;
+
+    -fx-min-height: 0;
+    -fx-pref-height: 0;
+    -fx-max-height: 0;
+}
+.table-view .column-header-background {
+    -fx-max-height: 0;
+    -fx-pref-height: 0;
+    -fx-min-height: 0;
+}
+.table-view .cell{
+   -fx-cell-size: 35;
+  -fx-alignment: center-left;
+  -fx-background-color: #FFFFFF;
+}
+.table-row-cell:selected {
+   -fx-background-color: #0174DF;
+   -fx-text-background-color:  #0174DF;
+}

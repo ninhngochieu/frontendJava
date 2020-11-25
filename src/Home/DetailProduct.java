@@ -10,6 +10,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.geometry.Side;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -46,6 +47,8 @@ public class DetailProduct implements Initializable {
     public DatePicker date_end;
     public Label minPrice;
     public Label maxPrice;
+    public CategoryAxis xAxis;
+    public NumberAxis yAxis;
     DecimalFormat formatter = new DecimalFormat("###,###,###");
     public void handleBackHome(ActionEvent event) throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource("Home.fxml"));
@@ -57,10 +60,7 @@ public class DetailProduct implements Initializable {
     }
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        NumberAxis yAxis = new NumberAxis();
-        CategoryAxis xAxis = new CategoryAxis();
-        yAxis.setForceZeroInRange(false);
-        xAxis.setAnimated(false);
+
         XYChart.Series<String,Number> series = new XYChart.Series<>();
         for(History h : arr.histories){
             XYChart.Data<String,Number> day = new XYChart.Data<>(h.getLastUpdate(), h.getPrice());
