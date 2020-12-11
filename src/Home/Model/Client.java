@@ -2,16 +2,11 @@ package Home.Model;
 
 import java.io.*;
 import java.net.Socket;
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 
 import Home.DTO.Category;
-import Home.DTO.CommentDTO;
+import Home.CommentDTO;
 import Home.DTO.History;
-import Home.DTO.Page;
 import Home.NameProduct;
 import Home.Product;
 import org.json.JSONArray;
@@ -124,27 +119,12 @@ public class Client {
         }
         return arr;
     }
-//    static ArrayList<NameProduct> resutlNameProduct(String data) {
-//        ArrayList<NameProduct> arr = new ArrayList<>();
-//        JSONObject jsons = null;
-//        try {
-//            jsons = new JSONObject(data);
-//            JSONArray json = jsons.getJSONArray("name");
-//            json.forEach(x -> {
-//                NameProduct  name = new NameProduct();
-//                name.setName(x.toString());
-//                arr.add(name);
-//            });
-//        } catch (JSONException e) {
-//            e.printStackTrace();
-//        }
-//        return arr;
-//    }
     static ArrayList<Product> resultDataProduct(String data){
         ArrayList<Product> arr = new ArrayList<>();
         JSONObject jsons = null;
         try {
             jsons = new JSONObject(data);
+            //System.out.println(data);
             SINGLETON.page.setCurrent_page(jsons.getInt("current_page"));
             SINGLETON.page.setTotal(jsons.getInt("total"));
             SINGLETON.page.setTotal_page(jsons.getInt("last_page"));
@@ -233,6 +213,7 @@ public class Client {
                 commentDTO.setRating(jsonObj.getInt("rating"));
                 commentDTO.setTitle(jsonObj.getString("title"));
                 commentDTO.setContent(jsonObj.getString("content"));
+                commentDTO.setThank_count(jsonObj.getInt("thank_count"));
                 arr.add(commentDTO);
             }
         } catch (JSONException e) {

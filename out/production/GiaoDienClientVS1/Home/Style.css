@@ -30,14 +30,14 @@
     -fx-text-fill: white;
 }
 .default-color0.chart-legend-item-symbol { -fx-background-color:    #A3DFFD;}
-.default-color0.chart-series-line {-fx-stroke:                      #A3DFFD;}
-.default-color0.chart-series-area-line {-fx-stroke:                 #A3DFFD;}
+.default-color0.chart-series-line {-fx-stroke:                      #07A8F9;}
+.default-color0.chart-series-area-line {-fx-stroke:                 #07A8F9;}
 .default-color0.chart-series-area-fill {-fx-fill:                   #A3DFFD;}
 
-.default-color1.chart-legend-item-symbol { -fx-background-color:    #000000;}
-.default-color1.chart-series-line {-fx-stroke:                      #000000;}
-.default-color1.chart-series-area-line {-fx-stroke:                 #000000;}
-.default-color1.chart-series-area-fill {-fx-fill:                   #000000;}
+.default-color1.chart-legend-item-symbol { -fx-background-color:    #A3DFFD;}
+.default-color1.chart-series-line {-fx-stroke:                      #07A8F9;}
+.default-color1.chart-series-area-line {-fx-stroke:                 #07A8F9;}
+.default-color1.chart-series-area-fill {-fx-fill:                   #A3DFFD;}
 .table-view .scroll-bar * {
     -fx-min-width: 0;
     -fx-pref-width: 0;
@@ -52,12 +52,23 @@
     -fx-pref-height: 0;
     -fx-min-height: 0;
 }
-.table-view .cell{
-   -fx-cell-size: 35;
-  -fx-alignment: center-left;
-  -fx-background-color: #FFFFFF;
+.table-view .table-cell{
+    -fx-text-fill: black;
 }
+.table-row-cell{
+    -fx-background-color: -fx-table-cell-border-color, #FFFFFF;
+    -fx-background-insets: 0, 0 0 1 0;
+    -fx-padding: 0.0em;
+}
+
+.table-row-cell:odd{
+    -fx-background-color: -fx-table-cell-border-color, #FFFFFF;
+    -fx-background-insets: 0, 0 0 1 0;
+    -fx-padding: 0.0em;
+}
+
 .table-row-cell:selected {
-   -fx-background-color: #0174DF;
-   -fx-text-background-color:  #0174DF;
+    -fx-background-color: #DCDCDC;
+    -fx-background-insets: 0;
+    -fx-background-radius: 1;
 }

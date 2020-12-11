@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/javafx-swt"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/jfoenix-9.0.10"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/fontawesomefx-8.2"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/jackson-databind-2.11.1"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/jackson-core-2.2.3"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/jackson-databind-2.11.11"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/java-json"/>
+	<classpathentry kind="output" path="out/production/GiaoDienClientVS1"/>
+</classpath>

@@ -1,88 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.ScrollPane?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
+<?import com.jfoenix.controls.JFXListView?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.Pane?>
-<?import javafx.scene.layout.VBox?>
-<?import javafx.scene.text.Font?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
 
-<AnchorPane prefHeight="599.0" prefWidth="903.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Home.Comment">
+<AnchorPane prefHeight="500.0" prefWidth="900.0" style="-fx-background-color: white;" stylesheets="@stylecomment.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Home.Comment">
    <children>
-      <Pane layoutX="39.0" prefHeight="88.0" prefWidth="820.0">
+      <GridPane layoutX="18.0" prefHeight="479.0" prefWidth="865.0" AnchorPane.bottomAnchor="21.0" AnchorPane.leftAnchor="18.0" AnchorPane.rightAnchor="17.0" AnchorPane.topAnchor="0.0">
+        <columnConstraints>
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints maxHeight="60.0" minHeight="10.0" prefHeight="11.666666984558105" vgrow="SOMETIMES" />
+          <RowConstraints maxHeight="480.3333330154419" minHeight="10.0" prefHeight="480.3333330154419" vgrow="SOMETIMES" />
+        </rowConstraints>
          <children>
-            <Label alignment="CENTER" prefHeight="43.0" prefWidth="820.0" text="Đánh Giá">
-               <font>
-                  <Font size="25.0" />
-               </font>
-            </Label>
-            <HBox layoutX="38.0" layoutY="42.0" prefHeight="98.0" prefWidth="436.0" />
+            <JFXListView fx:id="listComments" prefHeight="7.0" prefWidth="1000.0" GridPane.rowIndex="1" />
          </children>
-      </Pane>
-      <ScrollPane fx:id="main" layoutY="127.0" prefHeight="472.0" prefWidth="903.0">
-         <content>
-            <VBox fx:id="itemContent" prefHeight="198.0" prefWidth="776.0">
-               <children>
-                  <HBox prefHeight="47.0" prefWidth="859.0" style="-fx-background-color: white;">
-                     <children>
-                        <ImageView fitHeight="51.0" fitWidth="53.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../icon/96d39b47-870e-4d91-83a4-f3b2cc78e5b3_200x200.png" />
-                           </image>
-                        </ImageView>
-                        <VBox prefHeight="51.0" prefWidth="948.0">
-                           <padding>
-                              <Insets left="10.0" />
-                           </padding>
-                           <children>
-                              <Label fx:id="nameCustomer" prefHeight="30.0" prefWidth="798.0" text="Phác Tuấn Hỷ">
-                                 <font>
-                                    <Font size="16.0" />
-                                 </font>
-                              </Label>
-                              <Label fx:id="dateSumitted" layoutX="20.0" layoutY="10.0" prefHeight="18.0" prefWidth="823.0" text="Áo form rộng thoải mái. Chất vải mịn mát. Cực kì hài lòng">
-                                 <font>
-                                    <Font size="14.0" />
-                                 </font>
-                              </Label>
-                           </children>
-                        </VBox>
-                     </children>
-                  </HBox>
-                  <Label fx:id="Star" prefHeight="41.0" prefWidth="859.0" text="5 sao">
-                     <font>
-                        <Font name="System Bold" size="18.0" />
-                     </font>
-                     <padding>
-                        <Insets left="5.0" />
-                     </padding>
-                  </Label>
-                  <Label fx:id="level" layoutX="10.0" layoutY="61.0" prefHeight="41.0" prefWidth="859.0" text="Cực kỳ hài lòng">
-                     <font>
-                        <Font name="System Bold" size="15.0" />
-                     </font>
-                     <padding>
-                        <Insets left="5.0" />
-                     </padding>
-                  </Label>
-                  <Label fx:id="contentCommnet" alignment="TOP_LEFT" layoutX="10.0" layoutY="61.0" prefHeight="108.0" prefWidth="859.0" text="Áo form rộng thoải mái. Chất vải mịn mát. Cực kì hài lòng">
-                     <font>
-                        <Font size="15.0" />
-                     </font>
-                     <padding>
-                        <Insets left="5.0" />
-                     </padding>
-                  </Label>
-               </children>
-            </VBox>
-         </content>
-         <padding>
-            <Insets left="50.0" />
-         </padding>
-      </ScrollPane>
+      </GridPane>
    </children>
 </AnchorPane>

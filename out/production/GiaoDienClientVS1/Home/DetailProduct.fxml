@@ -11,14 +11,24 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.FlowPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
 <AnchorPane fx:id="paneDetail" prefHeight="639.0" prefWidth="906.0" style="-fx-border-color: #ffffff;" stylesheets="@Style.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Home.DetailProduct">
    <children>
-      <FlowPane prefHeight="625.0" prefWidth="904.0">
+      <GridPane prefHeight="639.0" prefWidth="907.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <columnConstraints>
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints maxHeight="224.3333282470703" minHeight="10.0" prefHeight="53.66667175292969" vgrow="SOMETIMES" />
+          <RowConstraints maxHeight="480.3333435058594" minHeight="10.0" prefHeight="437.6666564941406" vgrow="SOMETIMES" />
+          <RowConstraints maxHeight="203.0" minHeight="10.0" prefHeight="148.33334350585938" vgrow="SOMETIMES" />
+        </rowConstraints>
          <children>
             <HBox alignment="CENTER" prefHeight="50.0" prefWidth="904.0" style="-fx-background-color: white;">
                <children>
@@ -63,11 +73,8 @@
                      </HBox.margin>
                   </JFXButton>
                </children>
-               <FlowPane.margin>
-                  <Insets />
-               </FlowPane.margin>
             </HBox>
-            <AreaChart fx:id="lineChart" prefHeight="425.0" prefWidth="904.0" title="Biểu đồ theo dõi lịch sử giá">
+            <AreaChart fx:id="lineChart" prefHeight="425.0" prefWidth="904.0" title="Biểu đồ theo dõi lịch sử giá" GridPane.rowIndex="1">
                <xAxis>
                   <CategoryAxis fx:id="xAxis" />
                </xAxis>
@@ -75,8 +82,7 @@
                   <NumberAxis fx:id="yAxis" side="LEFT" />
                </yAxis>
             </AreaChart>
-            <HBox prefHeight="12.0" prefWidth="900.0" />
-            <HBox prefHeight="150.0" prefWidth="904.0" style="-fx-background-color: white;">
+            <HBox prefHeight="150.0" prefWidth="904.0" style="-fx-background-color: white;" GridPane.rowIndex="2">
                <children>
                   <ImageView fx:id="image" fitHeight="143.0" fitWidth="91.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -132,6 +138,6 @@
                </padding>
             </HBox>
          </children>
-      </FlowPane>
+      </GridPane>
    </children>
 </AnchorPane>

@@ -8,7 +8,9 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
@@ -25,20 +27,28 @@ public class Load implements Initializable {
     public AnchorPane loadPane;
     @FXML
     public ImageView imgLoad;
-    @FXML
-    public Label addressip;
     public VBox error;
-    public static String ip = "192.168.1.3";
+    public TextField ipaddress;
+    public static String ip = "192.168.1.74";
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle)
     {
-        addressip.setText(ip);
-        new load().start();
+        //new load().start();
     }
     public void handleConnect(ActionEvent event){
-        imgLoad.setVisible(true);
-        error.setVisible(false);
-        new load().start();
+        if(ipaddress.getText().equals("")){
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Lỗi");
+            alert.setHeaderText("Ip không được để trống");
+            alert.showAndWait();
+        }
+        else{
+            imgLoad.setVisible(true);
+            error.setVisible(false);
+            ipaddress.setVisible(false);
+            ip = ipaddress.getText();
+            new load().start();
+        }
     }
     public void closeSession(ActionEvent event){
         System.exit(0);
@@ -52,7 +62,7 @@ public class Load implements Initializable {
                     Parent root2 = FXMLLoader.load(getClass().getResource("Home.fxml"));
                     window.setTitle("Theo dõi giá tiki");
                     window.resizableProperty().setValue(false);
-                    InputStream stream = new FileInputStream("C:\\Users\\huyth\\IdeaProjects\\GiaoDienClientVS1\\src\\icon\\icons8_chart_increasing_with_yen_20px.png");
+                    InputStream stream = new FileInputStream("src/icon/icons8_chart_increasing_with_yen_20px.png");
                     window.getIcons().add(new Image(stream));
                     Scene detail = new Scene(root2);
                     window.setScene(detail);
@@ -66,6 +76,7 @@ public class Load implements Initializable {
                 System.out.println("Ket noi that bai");
                 imgLoad.setVisible(false);
                 error.setVisible(true);
+                ipaddress.setVisible(true);
             }
         }
         @Override

@@ -3,7 +3,7 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -20,41 +20,15 @@
                   <Image url="@../icon/96d39b47-870e-4d91-83a4-f3b2cc78e5b3_200x200.png" />
                </image>
             </ImageView>
-            <Label fx:id="textError" alignment="CENTER" prefHeight="26.0" prefWidth="200.0" style="-fx-font-weight: bold;" text="Đang kết nối tới Server" textFill="#faf7f7">
+            <TextField fx:id="ipaddress" onAction="#handleConnect" prefHeight="38.0" prefWidth="200.0" promptText="Nhập địa chỉ ip" style="-fx-background-radius: 0;">
                <font>
-                  <Font name="Calibri" size="18.0" />
-               </font>
-            </Label>
-            <HBox prefHeight="34.0" prefWidth="200.0">
+                  <Font size="15.0" />
+               </font></TextField>
+            <VBox fx:id="error" alignment="TOP_CENTER" prefHeight="51.0" prefWidth="200.0">
                <children>
-                  <Label alignment="CENTER_RIGHT" prefHeight="57.0" prefWidth="59.0" style="-fx-font-weight: bold;" text="IP :" textFill="WHITE">
-                     <font>
-                        <Font size="14.0" />
-                     </font>
-                  </Label>
-                  <Label fx:id="addressip" prefHeight="57.0" prefWidth="142.0" style="-fx-font-weight: bold;" text="192.168.1.2" textFill="WHITE">
-                     <font>
-                        <Font name="Arial" size="14.0" />
-                     </font>
-                     <HBox.margin>
-                        <Insets />
-                     </HBox.margin>
-                     <padding>
-                        <Insets left="10.0" />
-                     </padding>
-                  </Label>
-               </children>
-            </HBox>
-            <ImageView fx:id="imgLoad" fitHeight="18.0" fitWidth="176.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../icon/30.gif" />
-               </image>
-            </ImageView>
-            <VBox fx:id="error" alignment="TOP_CENTER" prefHeight="64.0" prefWidth="100.0" visible="false">
-               <children>
-                  <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+                  <HBox alignment="CENTER" prefHeight="48.0" prefWidth="200.0">
                      <children>
-                        <Button onAction="#handleConnect" prefHeight="31.0" prefWidth="95.0" style="-fx-background-color: #FFFFFF;" text="Kết nối lại">
+                        <Button onAction="#handleConnect" prefHeight="31.0" prefWidth="107.0" style="-fx-background-color: #FFFFFF;" text="Kết nối">
                            <font>
                               <Font name="Arial" size="14.0" />
                            </font>
@@ -65,7 +39,7 @@
                               <Cursor fx:constant="HAND" />
                            </cursor>
                         </Button>
-                        <Button onAction="#closeSession" prefHeight="32.0" prefWidth="74.0" style="-fx-background-color: #FA5858;" text="Đóng" textFill="WHITE">
+                        <Button onAction="#closeSession" prefHeight="32.0" prefWidth="89.0" style="-fx-background-color: #FA5858;" text="Đóng" textFill="WHITE">
                            <font>
                               <Font name="Arial" size="15.0" />
                            </font>
@@ -77,6 +51,14 @@
                   </HBox>
                </children>
             </VBox>
+            <ImageView fx:id="imgLoad" fitHeight="18.0" fitWidth="162.0" pickOnBounds="true" preserveRatio="true" visible="false">
+               <image>
+                  <Image url="@../icon/30.gif" />
+               </image>
+               <VBox.margin>
+                  <Insets top="-40.0" />
+               </VBox.margin>
+            </ImageView>
          </children>
       </VBox>
    </children>

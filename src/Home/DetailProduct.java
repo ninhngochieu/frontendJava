@@ -7,27 +7,33 @@ import com.jfoenix.controls.JFXListView;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.geometry.Insets;
 import javafx.geometry.Side;
+import javafx.scene.Cursor;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.chart.*;
-import javafx.scene.control.Button;
-import javafx.scene.control.DatePicker;
-import javafx.scene.control.Label;
-import javafx.scene.control.ListView;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.StackPane;
+import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.net.URL;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
@@ -49,6 +55,7 @@ public class DetailProduct implements Initializable {
     public Label maxPrice;
     public CategoryAxis xAxis;
     public NumberAxis yAxis;
+    public FlowPane paneD;
     DecimalFormat formatter = new DecimalFormat("###,###,###");
     public void handleBackHome(ActionEvent event) throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource("Home.fxml"));
@@ -60,10 +67,10 @@ public class DetailProduct implements Initializable {
     }
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-
         XYChart.Series<String,Number> series = new XYChart.Series<>();
         for(History h : arr.histories){
             XYChart.Data<String,Number> day = new XYChart.Data<>(h.getLastUpdate(), h.getPrice());
+            day.setNode(new HoveredThresholdNodea(h.getLastUpdate(), h.getPrice()));
             series.getData().addAll(day);
         }
         Image img = new Image(arr.product.getImage());
@@ -74,7 +81,7 @@ public class DetailProduct implements Initializable {
         maxPrice.setText(formatter.format(arr.product.getMax_price())+" Đ");
         minPrice.setText(formatter.format(arr.product.getMin_price())+" Đ");
         series.setName(arr.product.getName());
-        lineChart.setAnimated(false);
+        lineChart.setAnimated(true);
         lineChart.getData().add(series);
     }
     public void handleWebView(ActionEvent event){
@@ -95,6 +102,7 @@ public class DetailProduct implements Initializable {
         lineChart.getData().remove(0);
         for(History h : arr.histories){
             XYChart.Data<String,Number> day = new XYChart.Data<>(h.getLastUpdate(), h.getPrice());
+            day.setNode(new HoveredThresholdNodea(h.getLastUpdate(), h.getPrice()));
             series.getData().addAll(day);
         }
         series.setName(arr.product.getName());
@@ -102,11 +110,63 @@ public class DetailProduct implements Initializable {
         maxPrice.setText(formatter.format(arr.product.getMax_price())+" Đ");
         minPrice.setText(formatter.format(arr.product.getMin_price())+" Đ");
     }
-    public void reloadSecne(){
-
-    }
     public void handleOpenComment(ActionEvent event) throws IOException {
-        Pane newLoadedPane =  FXMLLoader.load(getClass().getResource("Comment.fxml"));
-        paneDetail.getChildren().add(newLoadedPane);
+        Parent root = null;
+        try {
+            root = FXMLLoader.load(getClass().getResource("Comment.fxml"));
+            Scene comment = new Scene(root);
+            Stage window = new Stage();
+            window.setScene(comment);
+            window.setTitle("Theo dõi giá tiki");
+            InputStream stream = new FileInputStream("src/icon/icons8_chart_increasing_with_yen_20px.png");
+            window.getIcons().add(new Image(stream));
+            window.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    class HoveredThresholdNodea extends StackPane {
+
+        public HoveredThresholdNodea(String string, int object) {
+            setPrefSize(5, 5);
+            final Label label = createDataThresholdLabel(string, object);
+
+            setOnMouseEntered(new EventHandler<MouseEvent>() {
+                @Override
+                public void handle(MouseEvent mouseEvent) {
+                    getChildren().setAll(label);
+                    setCursor(Cursor.NONE);
+                    toFront();
+                }
+            });
+            setOnMouseExited(new EventHandler<MouseEvent>() {
+                @Override
+                public void handle(MouseEvent mouseEvent) {
+                    getChildren().clear();
+                }
+            });
+        }
+
+        private Label createDataThresholdLabel(String string, int object) {
+            String prices = formatter.format(object)+"Đ";
+            final Label label = new Label(prices + "");
+            label.getStyleClass().addAll("default-color0", "chart-line-symbol", "chart-series-line");
+            label.setStyle("-fx-font-size: 15; -fx-font-weight: bold;");
+            label.setOpacity(0.8);
+            if (string.equals("engine1")) {
+                label.setTextFill(Color.RED);
+                label.setStyle("-fx-border-color: #12A6F0;");
+            } else if (string.equals("engine2")) {
+                label.setTextFill(Color.ORANGE);
+                label.setStyle("-fx-border-color: #12A6F0;");
+            } else {
+                label.setTextFill(Color.GREEN);
+                label.setStyle("-fx-border-radius: 2;-fx-background-color: #DCDCDC;");
+            }
+
+            label.setMinSize(Label.USE_PREF_SIZE, Label.USE_PREF_SIZE);
+            return label;
+        }
     }
 }

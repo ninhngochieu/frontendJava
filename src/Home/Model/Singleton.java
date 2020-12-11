@@ -1,7 +1,7 @@
 package Home.Model;
 
 import Home.DTO.Category;
-import Home.DTO.CommentDTO;
+import Home.CommentDTO;
 import Home.DTO.History;
 import Home.DTO.Page;
 import Home.NameProduct;

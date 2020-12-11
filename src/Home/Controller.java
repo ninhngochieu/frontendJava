@@ -32,6 +32,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -128,13 +129,14 @@ public class Controller implements Initializable {
             }
             tableView.setItems(subentries);
         });
-        Platform.runLater(() -> Demo());
-
+        handleEnter();
     }
-    public void Demo(){
+    public void handleEnter(){
         tableView.setOnKeyReleased((KeyEvent event) -> {
-            if(!tableView.getSelectionModel().isEmpty()
-                    && (event.getCode().equals(KeyCode.ENTER))){
+            TableColumn col = tableView.getColumns().get(0);
+            int index = tableView.getSelectionModel().getSelectedIndex();
+            tableView.getSelectionModel().select(index, col);
+            if(event.getCode().equals(KeyCode.ENTER)){
                 onEdit();
                 event.consume();
             }
@@ -182,8 +184,10 @@ public class Controller implements Initializable {
         for(Product pro : arr.products){
             dataProduct.add(pro);
         }
+
         listProduct.setCellFactory(param -> new Cell());
         listProduct.setItems(dataProduct);
+        listProduct.scrollTo(0);
     }
     static class Cell extends ListCell<Product>{
         public ImageView imageView = new ImageView();
@@ -260,7 +264,7 @@ public class Controller implements Initializable {
                 Stage window = new Stage();
                 window.setScene(detail);
                 window.setTitle("Theo dõi giá tiki");
-                InputStream stream = new FileInputStream("C:\\Users\\huyth\\IdeaProjects\\GiaoDienClientVS1\\src\\icon\\icons8_chart_increasing_with_yen_20px.png");
+                InputStream stream = new FileInputStream("src/icon/icons8_chart_increasing_with_yen_20px.png");
                 window.getIcons().add(new Image(stream));
                 window.show();
             } catch (IOException e) {

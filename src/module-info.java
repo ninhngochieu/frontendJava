@@ -4,7 +4,7 @@ module GiaoDienClientVS1 {
     requires javafx.base;
     requires javafx.graphics;
     requires com.jfoenix;
-    requires fontawesomefx;
     requires org.json;
+    requires org.controlsfx.controls;
     opens Home;
 }
