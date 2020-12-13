@@ -3,6 +3,7 @@ package Home;
 import Home.Model.Client;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -13,6 +14,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
@@ -30,16 +32,19 @@ public class Load implements Initializable {
     public VBox error;
     public TextField ipaddress;
     public static String ip = "192.168.1.74";
+    private static double xOffset = 0;
+    private static double yOffset = 0;
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle)
     {
         //new load().start();
+
     }
     public void handleConnect(ActionEvent event){
-        if(ipaddress.getText().equals("")){
+        if(!ipaddress.getText().matches("^(([0-9]|[1-9][0-9]|1[0-9][0-9]|2[0-4][0-9]|25[0-5])(\\.(?!$)|$)){4}$")){
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Lỗi");
-            alert.setHeaderText("Ip không được để trống");
+            alert.setHeaderText("Ip không hợp lệ vd : 192.168.1.1");
             alert.showAndWait();
         }
         else{

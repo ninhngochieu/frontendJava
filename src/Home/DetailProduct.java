@@ -28,6 +28,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
@@ -83,6 +84,8 @@ public class DetailProduct implements Initializable {
         series.setName(arr.product.getName());
         lineChart.setAnimated(true);
         lineChart.getData().add(series);
+        date_end.setFocusTraversable(false);
+        date_start.setFocusTraversable(false);
     }
     public void handleWebView(ActionEvent event){
         Runtime rt = Runtime.getRuntime();
@@ -94,21 +97,29 @@ public class DetailProduct implements Initializable {
         }
     }
     public void handleFillterDate(ActionEvent event){
-        String start = date_start.getValue().toString();
-        String end = date_end.getValue().toString();
-        String key = "id="+id+"&start="+start+"&end="+end;
-        Client.senData("fillter_history",key);
-        XYChart.Series<String,Number> series = new XYChart.Series<>();
-        lineChart.getData().remove(0);
-        for(History h : arr.histories){
-            XYChart.Data<String,Number> day = new XYChart.Data<>(h.getLastUpdate(), h.getPrice());
-            day.setNode(new HoveredThresholdNodea(h.getLastUpdate(), h.getPrice()));
-            series.getData().addAll(day);
+        String start = date_start.getEditor().getText();
+        String end = date_end.getEditor().getText();
+        if(start.matches("[0-9]{1,2}(/|-)[0-9]{1,2}(/|-)[0-9]{4}") && end.matches("[0-9]{1,2}(/|-)[0-9]{1,2}(/|-)[0-9]{4}")){
+            String key = "id="+id+"&start="+date_start.getValue().toString()+"&end="+date_end.getValue().toString();
+            Client.senData("fillter_history",key);
+            XYChart.Series<String,Number> series = new XYChart.Series<>();
+            lineChart.getData().remove(0);
+            for(History h : arr.histories){
+                XYChart.Data<String,Number> day = new XYChart.Data<>(h.getLastUpdate(), h.getPrice());
+                day.setNode(new HoveredThresholdNodea(h.getLastUpdate(), h.getPrice()));
+                series.getData().addAll(day);
+            }
+            series.setName(arr.product.getName());
+            lineChart.getData().add(series);
+            maxPrice.setText(formatter.format(arr.product.getMax_price())+" Đ");
+            minPrice.setText(formatter.format(arr.product.getMin_price())+" Đ");
         }
-        series.setName(arr.product.getName());
-        lineChart.getData().add(series);
-        maxPrice.setText(formatter.format(arr.product.getMax_price())+" Đ");
-        minPrice.setText(formatter.format(arr.product.getMin_price())+" Đ");
+        else{
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Lỗi");
+            alert.setHeaderText("Ngày tháng không hợp lệ");
+            alert.showAndWait();
+        }
     }
     public void handleOpenComment(ActionEvent event) throws IOException {
         Parent root = null;
@@ -120,6 +131,10 @@ public class DetailProduct implements Initializable {
             window.setTitle("Theo dõi giá tiki");
             InputStream stream = new FileInputStream("src/icon/icons8_chart_increasing_with_yen_20px.png");
             window.getIcons().add(new Image(stream));
+            window.initModality(Modality.WINDOW_MODAL);
+
+            // Specifies the owner Window (parent) for new window
+            window.initOwner(((Node)event.getTarget()).getScene().getWindow());
             window.show();
         } catch (IOException e) {
             e.printStackTrace();

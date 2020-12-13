@@ -18,6 +18,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
@@ -28,9 +29,11 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
@@ -165,7 +168,15 @@ public class Controller implements Initializable {
     public void fillterPrice(ActionEvent event){
         String min = minPrice.getText();
         String max = maxPrice.getText();
-        search(1,min,max);
+        if(min.matches("[0-9]+") && max.matches("[0-9]+")){
+            search(1,min,max);
+        }
+        else{
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Lỗi");
+            alert.setHeaderText("Giá nhập vào phải là số");
+            alert.showAndWait();
+        }
     }
     public void getNameCatogory(){
         if(idCategory.equals("1")){
@@ -233,7 +244,7 @@ public class Controller implements Initializable {
                 cl.senData("detailProduct","id="+b.getId());
                 DetailProduct de = new DetailProduct();
                 de.idProduct(b.getId());
-                loadDetail(b.getId());
+                loadDetail(b.getId(),e);
 
             });
 
@@ -256,7 +267,7 @@ public class Controller implements Initializable {
                 setGraphic(hbox);
             }
         }
-        public void loadDetail(String id){
+        public void loadDetail(String id,ActionEvent event){
             Parent root = null;
             try {
                 root = FXMLLoader.load(getClass().getResource("DetailProduct.fxml"));
@@ -266,6 +277,10 @@ public class Controller implements Initializable {
                 window.setTitle("Theo dõi giá tiki");
                 InputStream stream = new FileInputStream("src/icon/icons8_chart_increasing_with_yen_20px.png");
                 window.getIcons().add(new Image(stream));
+                window.initModality(Modality.WINDOW_MODAL);
+
+                // Specifies the owner Window (parent) for new window
+                window.initOwner(((Node)event.getTarget()).getScene().getWindow());
                 window.show();
             } catch (IOException e) {
                 e.printStackTrace();

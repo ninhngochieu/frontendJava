@@ -17,6 +17,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
+<?import org.controlsfx.control.Rating?>
 
 <AnchorPane fx:id="paneDetail" prefHeight="639.0" prefWidth="906.0" style="-fx-border-color: #ffffff;" stylesheets="@Style.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Home.DetailProduct">
    <children>
@@ -122,6 +123,19 @@
                   </VBox>
                   <VBox alignment="CENTER" prefHeight="143.0" prefWidth="232.0">
                      <children>
+                        <Label text="Đánh giá : 5.0">
+                           <font>
+                              <Font size="26.0" />
+                           </font>
+                           <VBox.margin>
+                              <Insets bottom="3.0" />
+                           </VBox.margin>
+                        </Label>
+                        <Rating >
+                           <VBox.margin>
+                              <Insets bottom="5.0" />
+                           </VBox.margin>
+                        </Rating>
                         <JFXButton onAction="#handleOpenComment" prefHeight="37.0" prefWidth="232.0" style="-fx-background-color: #0174DF;" text="Xem bình luận" textFill="WHITE">
                            <font>
                               <Font size="15.0" />
