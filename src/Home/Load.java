@@ -1,6 +1,8 @@
 package Home;
 
 import Home.Model.Client;
+import Home.Model.RSA;
+import Home.Model.Singleton;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -18,11 +20,11 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStream;
+
+import java.io.*;
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.Scanner;
 
 public class Load implements Initializable {
     @FXML
@@ -37,8 +39,30 @@ public class Load implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle)
     {
+        getOldIP();
+        RSA.genaKeyPari();
         //new load().start();
 
+    }
+    private void getOldIP(){
+        try {
+            Scanner sc = new Scanner(new File("src//Home//OldIP.txt"));
+            ipaddress.setText(sc.nextLine());
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
+    private void setOldIP() {
+        try {
+            FileWriter w = new FileWriter("src//Home//OldIP.txt");
+
+            w.write(ipaddress.getText());
+            w.close();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
     public void handleConnect(ActionEvent event){
         if(!ipaddress.getText().matches("^(([0-9]|[1-9][0-9]|1[0-9][0-9]|2[0-4][0-9]|25[0-5])(\\.(?!$)|$)){4}$")){
@@ -63,6 +87,7 @@ public class Load implements Initializable {
             Client cl = new Client();
             if(cl.startClient(ip,5003)){
                 try {
+                    Client.senData("keyPRP","publicKey="+Singleton.publicKey);
                     Stage window = new Stage();
                     Parent root2 = FXMLLoader.load(getClass().getResource("Home.fxml"));
                     window.setTitle("Theo dõi giá tiki");
@@ -73,6 +98,8 @@ public class Load implements Initializable {
                     window.setScene(detail);
                     window.show();
                     loadPane.getScene().getWindow().hide();
+                    setOldIP();
+
                 } catch (IOException e) {
                     e.printStackTrace();
                 }

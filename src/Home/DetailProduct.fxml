@@ -121,17 +121,25 @@
                         </JFXButton>
                      </children>
                   </VBox>
-                  <VBox alignment="CENTER" prefHeight="143.0" prefWidth="232.0">
+                  <VBox alignment="TOP_CENTER" prefHeight="143.0" prefWidth="232.0">
                      <children>
-                        <Label text="Đánh giá : 5.0">
+                        <Label fx:id="number_rating" text="Đánh giá : 5.0">
                            <font>
-                              <Font size="26.0" />
+                              <Font size="20.0" />
                            </font>
                            <VBox.margin>
                               <Insets bottom="3.0" />
                            </VBox.margin>
                         </Label>
-                        <Rating >
+                        <Label fx:id="review_count" text="(12 nhận xét)">
+                           <font>
+                              <Font size="15.0" />
+                           </font>
+                           <VBox.margin>
+                              <Insets bottom="3.0" />
+                           </VBox.margin>
+                        </Label>
+                        <Rating fx:id="rating_product">
                            <VBox.margin>
                               <Insets bottom="5.0" />
                            </VBox.margin>

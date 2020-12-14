@@ -116,6 +116,7 @@ public class Comment implements Initializable {
             else{
                 fullname.setText(commentDTO.getFull_name());
                 dateComment.setText("Nhận xét vào ngày "+commentDTO.getPurchased_at());
+                rating.setPartialRating(true);
                 rating.setRating(commentDTO.getRating());
                 title.setText(commentDTO.getTitle());
                 content.setText(commentDTO.getContent());

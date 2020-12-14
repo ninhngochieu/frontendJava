@@ -43,18 +43,34 @@ public class Client {
     public static void senData(String action,String param){
         String key = "action="+action+"&"+param;
         String keys = "";
-        if(action.equals("getAllCategory")){
+        if(action.equals("keyPRP")){
             keys = key;
         }
         else{
             keys = sc.encrypt(key,SINGLETON.key);
+            //keys = key;
         }
+//        else{
+//            keys = key;
+
+//        }
+        //System.out.println(key);
+        //System.out.println(keys);
         try {
             out.write(keys);
+
             out.newLine();
             out.flush();
             String line = in.readLine();
-            checkResult(line,action);
+            if(action.equals("keyPRP")){
+                SINGLETON.key = RSA.decryt(line);
+                //keys = sc.encrypt(RSA.decryt(line),SINGLETON.key);
+                System.out.println("Key là"+SINGLETON.key);
+            }
+            else{
+                checkResult(line,action);
+            }
+            //checkResult(line,action);
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -64,7 +80,9 @@ public class Client {
 
         String data = null;
         if(action.equals("getAllCategory")){
-            SINGLETON.categories = resutlDataCategory(line);
+            System.out.println(line);
+            data = sc.decrypt(line,SINGLETON.key);
+            SINGLETON.categories = resutlDataCategory(data);
             //SINGLETON.nameProducts = resutlNameProduct(line);
         }
         if(action.equals("search")){
@@ -93,7 +111,7 @@ public class Client {
         try {
             jsons = new JSONObject(data);
             JSONArray json = jsons.getJSONArray("data");
-            SINGLETON.key = jsons.getString("key");
+            //SINGLETON.key = jsons.getString("key");
             for(int i = 0 ; i < json.length() ;i++){
                 Category  category = new Category();
                 JSONObject jsonObj = json.getJSONObject(i);
@@ -152,6 +170,8 @@ public class Client {
         SINGLETON.product.setId_item(jsons.getJSONObject("data").getString("id_item"));
         SINGLETON.product.setMax_price(jsons.getInt("max_price"));
         SINGLETON.product.setMin_price(jsons.getInt("min_price"));
+        SINGLETON.product.setRating(jsons.getJSONObject("data").getFloat("rating_average"));
+        SINGLETON.product.setReview_count(jsons.getJSONObject("data").getInt("review_count"));
         JSONArray jsonComment = jsons.getJSONObject("data").getJSONArray("commentDTOS");
         JSONArray jsonHistory = jsons.getJSONObject("data").getJSONArray("historyDTOS");
         if(SINGLETON.histories != null){

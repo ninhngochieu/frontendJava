@@ -66,7 +66,9 @@ public class Controller implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-       cl.senData("getAllCategory","");
+
+
+       cl.senData("getAllCategory","demo=0");
        categoryList.add(new Category("1","Tất cả",""));
        for(Category a : arr.categories){
            categoryList.add(a);
@@ -205,7 +207,7 @@ public class Controller implements Initializable {
         public HBox hbox = new HBox();
         public Label name = new Label();
         public Label price = new Label();
-        public Button detail = new Button("Chi tiết");
+        public Button detail = new Button("Biểu đồ");
         @FXML
         DecimalFormat formatter = new DecimalFormat("###,###,###");
         public Cell(){

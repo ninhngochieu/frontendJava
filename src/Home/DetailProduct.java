@@ -31,6 +31,7 @@ import javafx.scene.shape.Rectangle;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import org.controlsfx.control.Rating;
 
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -57,6 +58,9 @@ public class DetailProduct implements Initializable {
     public CategoryAxis xAxis;
     public NumberAxis yAxis;
     public FlowPane paneD;
+    public Label number_rating;
+    public Rating rating_product;
+    public Label review_count;
     DecimalFormat formatter = new DecimalFormat("###,###,###");
     public void handleBackHome(ActionEvent event) throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource("Home.fxml"));
@@ -81,8 +85,12 @@ public class DetailProduct implements Initializable {
         priceProduct.setText(prices);
         maxPrice.setText(formatter.format(arr.product.getMax_price())+" Đ");
         minPrice.setText(formatter.format(arr.product.getMin_price())+" Đ");
+        number_rating.setText(("Đánh giá : "+arr.product.getRating()));
+        rating_product.setPartialRating(true);
+        rating_product.setRating(arr.product.getRating());
+        review_count.setText("("+ arr.product.getReview_count()+ " nhận xét)");
         series.setName(arr.product.getName());
-        lineChart.setAnimated(true);
+        lineChart.setAnimated(false);
         lineChart.getData().add(series);
         date_end.setFocusTraversable(false);
         date_start.setFocusTraversable(false);
