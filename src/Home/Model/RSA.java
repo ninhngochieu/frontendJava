@@ -26,7 +26,7 @@ public class RSA {
             sg.publicKey = Base64.getEncoder().encodeToString(publicKey.getEncoded());
             //System.out.println(publicKey.toString()+"và"+privateKey.toString());
             //System.out.println(sg.privateKey + "và" + sg.publicKey);
-            System.out.println("Ma hoa thanh cong");
+            System.out.println("Tao private key và public key thanh cong");
         } catch (Exception e) {
             e.printStackTrace();
         }

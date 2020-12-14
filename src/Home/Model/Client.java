@@ -65,7 +65,7 @@ public class Client {
             if(action.equals("keyPRP")){
                 SINGLETON.key = RSA.decryt(line);
                 //keys = sc.encrypt(RSA.decryt(line),SINGLETON.key);
-                System.out.println("Key là"+SINGLETON.key);
+                //System.out.println("Key là"+SINGLETON.key);
             }
             else{
                 checkResult(line,action);
@@ -80,7 +80,7 @@ public class Client {
 
         String data = null;
         if(action.equals("getAllCategory")){
-            System.out.println(line);
+            //System.out.println(line);
             data = sc.decrypt(line,SINGLETON.key);
             SINGLETON.categories = resutlDataCategory(data);
             //SINGLETON.nameProducts = resutlNameProduct(line);
