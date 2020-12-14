@@ -8,7 +8,20 @@ public class Product {
     private String image;
     private String id_item;
     private int price;
+
+
+
     private int max_price;
+    private float rating;
+    private int review_count;
+
+    public int getReview_count() {
+        return review_count;
+    }
+
+    public void setReview_count(int review_count) {
+        this.review_count = review_count;
+    }
 
     public int getMax_price() {
         return max_price;
@@ -77,6 +90,12 @@ public class Product {
     public void setPrice(int price) {
         this.price = price;
     }
+    public float getRating() {
+        return rating;
+    }
 
+    public void setRating(float rating) {
+        this.rating = rating;
+    }
 
 }

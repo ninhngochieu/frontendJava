@@ -17,6 +17,9 @@ public class Singleton {
     public ArrayList<CommentDTO> commentDTOS = null;
     public ArrayList<NameProduct> nameProducts = null;
     public static String key = null;
+    public static String privateKey = "";
+    public static String publicKey = "";
+
 
     public Page page;
 
